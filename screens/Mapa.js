@@ -9,6 +9,13 @@ import {
 } from 'react-native';
 
 import MapView from 'react-native-maps';
+import MapViewDirections from 'react-native-maps-directions';
+ 
+const origin = {latitude: 37.3318456, longitude: -122.0296002};
+const destination = {latitude: 37.771707, longitude: -122.4053769};
+const GOOGLE_MAPS_APIKEY = 'AIzaSyBhkI0X1WScJL0AF-aBVXyYnfi6BJjDleg';
+ 
+
 
 const {width, height} = Dimensions.get('window')
 const LATDELTA = 0.01;
@@ -56,11 +63,7 @@ export default class MapaScreen extends Component {
       longitude: this.state.region.longitude
     }
   }
-
-  render() {
-    return (
-      <View style={styles.container}>
-        {this.state.region.latitude ? 
+/*
           <MapView
             style={styles.map}
             initialRegion={this.state.region}
@@ -70,12 +73,22 @@ export default class MapaScreen extends Component {
             rotateEnabled={false}
             cacheEnabled={true}
             loadingEnabled={true} 
-
           >
-
-          </MapView> 
+            
+          </MapView> */
+  render() {
+    return (
+      <View style={styles.container}>
+        {this.state.region.latitude ? 
           
-          : 
+          <MapView initialRegion={this.state.region}>
+              <MapViewDirections
+                origin={origin}
+                destination={destination}
+                apikey={GOOGLE_MAPS_APIKEY}
+              />
+            </MapView>
+            :
           <Text>
             Obteniendo posicion...
           </Text>

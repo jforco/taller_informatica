@@ -10,7 +10,9 @@
     "react": "16.3.1",
     "react-native": "0.55.4",
     "react-native-maps": "^0.21.0",
-    "react-navigation": "^2.0.4"
+    "react-native-maps-directions": "^1.6.0",
+    "react-navigation": "^2.0.4",
+    "tcomb-form-native": "^0.6.13"
   },
   "devDependencies": {
     "babel-jest": "23.0.1",

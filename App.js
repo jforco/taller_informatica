@@ -8,11 +8,12 @@ import LoginScreen from './screens/Login';
 import PedidoScreen from './screens/Pedidos';
 import HomeScreen from './screens/Home';
 import AuthLoadingScreen from './screens/Auth';
+import ExampleScreen from './screens/Example';
 
 const AppStack = createStackNavigator(
   {
     Home: HomeScreen,
-    Mapa: MapaScreen,
+    Mapa: ExampleScreen,
     Iniciar: IniciarScreen,
     Pedidos: PedidoScreen,
   },

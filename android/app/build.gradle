@@ -94,13 +94,13 @@ def enableSeparateBuildPerCPUArchitecture = false
 def enableProguardInReleaseBuilds = false
 
 android {
-    compileSdkVersion 25
-    buildToolsVersion "25.0.1"
+    compileSdkVersion   = 26
+    buildToolsVersion   = "26.0.2"
 
     defaultConfig {
         applicationId "com.taller01"
         minSdkVersion 16
-        multiDexEnabled true
+        multiDexEnabled false
         targetSdkVersion 22
         versionCode 1
         versionName "1.0"
@@ -138,9 +138,9 @@ android {
 }
 
 dependencies {
-    compile fileTree(dir: "libs", include: ["*.jar"])
-    compile "com.android.support:appcompat-v7:25.2.0"
-    compile "com.facebook.react:react-native:+"  // From node_modules
+    implementation fileTree(dir: "libs", include: ["*.jar"])
+    implementation "com.android.support:appcompat-v7:25.2.0"
+    implementation "com.facebook.react:react-native:+"  // From node_modules
     implementation project(':react-native-maps')
 
 
