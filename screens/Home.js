@@ -31,8 +31,9 @@ export default class HomeScreen extends React.Component {
       
     );
   }
-  cerrar_sesion = () => {
-    const userToken = AsyncStorage.removeItem('userToken');
+  cerrar_sesion = async () => {
+    const userToken = await AsyncStorage.removeItem('userToken');
+    const userOrders = await AsyncStorage.removeItem('userOrders');
     this.props.navigation.navigate('Auth');
   }
 }

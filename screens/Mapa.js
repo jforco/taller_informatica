@@ -23,12 +23,14 @@ const LONGDELTA = 0.01;
 
 export default class MapaScreen extends Component {
 
+
+
   static navigationOptions = {
     title: 'Mapaaa',
   };
   constructor() {
     super();
-  
+    this._bootstrapAsync();
     this.state = {
       region: {
         latitude: null,
@@ -38,6 +40,16 @@ export default class MapaScreen extends Component {
       }
     };
   }
+
+  _bootstrapAsync = async () => {
+    const userOrders = await AsyncStorage.getItem('userOrders');
+    if(userOrders){
+      this.props.navigation.navigate('Mapa');
+    } else {
+      alert('No tienes pedidos.  Por favor, inicia el Recorrido');
+      this.props.navigation.navigate('Home');
+    }
+  };
 
   componentWillMount () {
     navigator.geolocation.getCurrentPosition(
