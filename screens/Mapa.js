@@ -5,21 +5,24 @@ import {
   Text,
   View,
   Button,
-  Dimensions
+  Dimensions,
+  AsyncStorage
 } from 'react-native';
 
 import MapView from 'react-native-maps';
 import MapViewDirections from 'react-native-maps-directions';
  
-const origin = {latitude: 37.3318456, longitude: -122.0296002};
-const destination = {latitude: 37.771707, longitude: -122.4053769};
+//const origin = {latitude: 37.3318456, longitude: -122.0296002};-17.79656079,-63.17850734
+const destination1 = {latitude: -17.79656079, longitude: -63.17850734};
+const destination2 = {latitude: -17.79666079, longitude: -63.17860734};
 const GOOGLE_MAPS_APIKEY = 'AIzaSyBhkI0X1WScJL0AF-aBVXyYnfi6BJjDleg';
  
 
 
-const {width, height} = Dimensions.get('window')
-const LATDELTA = 0.01;
-const LONGDELTA = 0.01;
+const { width, height } = Dimensions.get('window');
+const ASPECT_RATIO = width / height;
+const LATITUDE_DELTA = 0.0922;
+const LONGITUDE_DELTA = LATITUDE_DELTA * ASPECT_RATIO;
 
 export default class MapaScreen extends Component {
 
@@ -56,25 +59,18 @@ export default class MapaScreen extends Component {
       (position) => {
         const lat = position.coords.latitude
         const lon = position.coords.longitude
-        const accuracy = position.coords.accuracy
         this.setState({ 
           region: { 
             latitude: lat, 
             longitude: lon, 
-            latitudeDelta: LATDELTA, 
-            longitudeDelta: LONGDELTA 
+            latitudeDelta: LATITUDE_DELTA, 
+            longitudeDelta: LONGITUDE_DELTA 
           } 
         }) 
       }
     )
   }
 
-  marker(){
-    return {
-      latitude: this.state.region.latitude,
-      longitude: this.state.region.longitude
-    }
-  }
 /*
           <MapView
             style={styles.map}
@@ -89,18 +85,28 @@ export default class MapaScreen extends Component {
             
           </MapView> */
   render() {
+    var origen1 = {latitude: this.state.region.latitude, longitude: this.state.region.longitude};
+    const { navigation } = this.props;
+    const lat = navigation.getParam('lat', null);
+    const lng = navigation.getParam('lng', null);
+    var destino1 = {latitude: lat, longitude: lng};
     return (
       <View style={styles.container}>
         {this.state.region.latitude ? 
-          
-          <MapView initialRegion={this.state.region}>
-              <MapViewDirections
-                origin={origin}
-                destination={destination}
-                apikey={GOOGLE_MAPS_APIKEY}
-              />
-            </MapView>
-            :
+          <MapView 
+            initialRegion={this.state.region} 
+            style={styles.map}
+            showsUserLocation={true} 
+          >
+            <MapViewDirections
+              origin={origen1}
+              destination={destino1}
+              apikey={GOOGLE_MAPS_APIKEY}
+              strokeWidth={3}
+              strokeColor="hotpink"
+            />
+          </MapView>
+        :
           <Text>
             Obteniendo posicion...
           </Text>
@@ -119,8 +125,8 @@ const styles = StyleSheet.create({
     backgroundColor: '#ffffff',
   },
   map: {
-    flex: 1,
-    width: width
+    width : width | 200 ,
+    height : height | 300 
   },
 
 });

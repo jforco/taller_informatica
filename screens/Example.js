@@ -34,14 +34,14 @@ export default class Example extends Component {
     this.mapView = null;
   }
  
-  onMapPress = (e) => {
+  /*onMapPress = (e) => {
     this.setState({
       coordinates: [
         ...this.state.coordinates,
         e.nativeEvent.coordinate,
       ],
     });
-  }
+  }*/
  
   render() {
     return (

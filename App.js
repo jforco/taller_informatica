@@ -8,14 +8,15 @@ import LoginScreen from './screens/Login';
 import PedidoScreen from './screens/Pedidos';
 import HomeScreen from './screens/Home';
 import AuthLoadingScreen from './screens/Auth';
-import ExampleScreen from './screens/Example';
+import VerScreen from './screens/Ver';
 
 const AppStack = createStackNavigator(
   {
     Home: HomeScreen,
-    Mapa: ExampleScreen,
+    Mapa: MapaScreen,
     Iniciar: IniciarScreen,
     Pedidos: PedidoScreen,
+    Ver: VerScreen,
   },
   {
     initialRouteName: 'Home',
@@ -23,6 +24,15 @@ const AppStack = createStackNavigator(
 );
 
 const AuthStack = createStackNavigator({ Login: LoginScreen });
+
+global._fetch = fetch;
+global.fetch = function(uri, options, ...args) {
+  return global._fetch(uri, options, ...args).then((response) => {
+    console.log('Fetch', { request: { uri, options, ...args }, response });
+    return response;
+  });
+};
+
 
 export default createSwitchNavigator(
   {
